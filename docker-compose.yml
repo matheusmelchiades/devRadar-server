@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+    mongo:
+        image: mongo
+        container_name: devRadar_db
+        environment:
+            MONGO_DATABASE: ${MONGO_DATABASE}
+            MONGO_USERNAME: ${MONGO_USERNAME}
+            MONGO_PASSWORD: ${MONGO_PASSWORD}
+            MONGO_ROLE: readWrite
+        restart: always
+        ports:
+            - ${MONGO_PORT}:27017
