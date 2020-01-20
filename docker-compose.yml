@@ -5,10 +5,12 @@ services:
         image: mongo
         container_name: devRadar_db
         environment:
-            MONGO_DATABASE: ${MONGO_DATABASE}
-            MONGO_USERNAME: ${MONGO_USERNAME}
-            MONGO_PASSWORD: ${MONGO_PASSWORD}
+            MONGO_DATABASE: ${DB_NAME}
+            MONGO_USERNAME: ${DB_USERNAME}
+            MONGO_PASSWORD: ${DB_PASSWORD}
             MONGO_ROLE: readWrite
         restart: always
         ports:
-            - ${MONGO_PORT}:27017
+            - ${DB_PORT}:27017
+        volumes:
+            - ./database/development/scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
