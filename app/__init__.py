@@ -1,14 +1,26 @@
 from flask import Flask, render_template
 from mongoengine import connect, Document, StringField
 
+from . import routes
 
-app = Flask(__name__)
+server = Flask(__name__)
 
-app.config.from_object('config.Development')
+server.config.from_object('config.Development')
 
-connect('devRadar', host=app.config['DATABASE_URL'])
+connect('devRadar', host=server.config['DATABASE_URL'])
+
+from app.components.developers.controller import Controller as DevController
+
+##########
+#  DEVS
+##########
+@server.route('/devs', methods=['GET'])
+def getDevs():
+    return DevController.getDevs()
 
 
-@app.errorhandler(404)
+@server.errorhandler(404)
 def not_found(error):
     return render_template('404.html')
+
+print('CHAMO 1')
